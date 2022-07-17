@@ -1,12 +1,12 @@
 import vk_api
 
 session = vk_api.VkApi(
-    token='')
+    token='введите токен')
 vk = session.get_api()
 
 
 def get_dialogs_list():
-    '''выводит список непрочитанных сообщений'''
+    '''возвращает список словарей непрочитанных сообщений {имя_пользователя:текст_сообщения}'''
     dialogs_list = vk.messages.getConversations(count=10, filter='unread')
     it = dialogs_list['items']
     dialogs = []
@@ -15,9 +15,9 @@ def get_dialogs_list():
         user_info = get_users_info(user_id)
         user_name = f"{user_info[0]['last_name']} {user_info[0]['first_name']}"
         text_mess = i['last_message']['text']
-        dialogs.append(f"{user_name}:\n{text_mess}\n\n")
-    print(*dialogs)
-
+        dict_ev = {user_name: text_mess}
+        dialogs.append(dict_ev)
+    return dialogs
 
 
 def send_message(id, msg):
@@ -36,9 +36,10 @@ def get_users_info(id):
     idies_info = vk.users.get(user_ids=id)
     return idies_info
 
+#___________Проверки исправности________
 # send_message('ку-ку')
 # print(get_friends())
 # print(get_users_info())
 # print(get_dialogs_list())
 # print(get_users_info(get_dialogs_list()))
-get_dialogs_list()
+# get_dialogs_list()
