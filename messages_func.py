@@ -15,7 +15,7 @@ def get_dialogs_list():
         user_info = get_users_info(user_id)
         user_name = f"{user_info[0]['last_name']} {user_info[0]['first_name']}"
         text_mess = i['last_message']['text']
-        dict_ev = {user_name: text_mess}
+        dict_ev = {user_name: [text_mess,user_id]}
         dialogs.append(dict_ev)
     return dialogs
 
